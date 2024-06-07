@@ -16,20 +16,32 @@ inline std::string CleanPath(std::string& target) {
 
 int main(int argc, char** argv) {
 #ifdef _WIN32
-	const std::filesystem::path compilerPath = "Compiler/Compiler.exe";
-	const std::filesystem::path linkerPath = "Linker/Linker.exe";
-#endif
+	std::filesystem::path compilerPath = "bin/Compiler.exe";
+	if (!std::filesystem::exists(compilerPath)) {
+		compilerPath = "./Compiler.exe";
+	}
 
+	std::filesystem::path linkerPath = "bin/Linker.exe";
+	if (!std::filesystem::exists(linkerPath)) {
+		compilerPath = "./Linker.exe";
+	}
+
+	std::filesystem::path emulatorPath = "bin/Emulator.exe";
+	if (!std::filesystem::exists(emulatorPath)) {
+		compilerPath = "./Emulator.exe";
+	}
+#endif
+	bool emulate = false;
+	bool dumb = false;
 	auto directory = std::filesystem::current_path();
 	for (int i = 1; i < argc; i++) {
 
-		if (std::string(argv[i]) == "-o" && i < (argc - 1)) {
-			i++;
+		if (std::string(argv[i]) == "-e") {
+			emulate = true;
 			continue;
 		}
-
-		if (std::string(argv[i]) == "-g" && i < (argc - 1)) {
-			i++;
+		if (std::string(argv[i]) == "-d") {
+			dumb = true;
 			continue;
 		}
 
@@ -61,7 +73,7 @@ int main(int argc, char** argv) {
 		printf("Warning: No files found, building empty rom\n");
 	}
 
-	std::filesystem::path intDir = directory.string() + "/" + directory.stem().string() + "-int";
+	std::filesystem::path intDir = directory.string() + "/" + directory.stem().string() + "-Int";
 	std::filesystem::path gFile = intDir.string() + "/globalData.comp";
 	std::filesystem::path outFile = directory.string() + "/" + directory.stem().string() + ".bin";
 	{
@@ -96,6 +108,20 @@ int main(int argc, char** argv) {
 			printf("Build failed at linking!");
 			return linkStatus;
 		}
+	}
+
+	if (emulate) {
+		printf("\n\nEmulating...\n");
+
+		std::stringstream emulatorCmd;
+		emulatorCmd << "call " << emulatorPath;
+		emulatorCmd << " " << outFile;
+		if(dumb)
+			emulatorCmd << " -d";
+
+		int emulatorStaus = system(emulatorCmd.str().c_str());
+		printf("Emulating returned: %d", emulatorStaus);
+		return emulatorStaus;
 	}
 	
 

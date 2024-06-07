@@ -26,12 +26,10 @@ project "Emulator"
 	
 	prebuildcommands {
 		"{MKDIR} \"%{buildToolsOutDir}\"",
-		
-		"{RMDIR} \"%{buildToolsOutDir}/Emulator\"",
-		"{MKDIR} \"%{buildToolsOutDir}/Emulator\"",
+		"{MKDIR} \"%{buildToolsOutDir}/bin\"",
 	}
 	postbuildcommands {
-		"{COPYDIR} \"%{cfg.targetdir}\" \"%{buildToolsOutDir}/Emulator\"",
+		"{COPYDIR} \"%{cfg.targetdir}\" \"%{buildToolsOutDir}/bin\"",
 	}
 	
 	filter "system:windows"

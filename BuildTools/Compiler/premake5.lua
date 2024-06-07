@@ -35,12 +35,10 @@ project "Compiler"
 	
 	prebuildcommands {
 		"{MKDIR} \"%{buildToolsOutDir}\"",
-		
-		"{RMDIR} \"%{buildToolsOutDir}/Compiler\"",
-		"{MKDIR} \"%{buildToolsOutDir}/Compiler\"",
+		"{MKDIR} \"%{buildToolsOutDir}/bin\"",
 	}
 	postbuildcommands {
-		"{COPYDIR} \"%{cfg.targetdir}\" \"%{buildToolsOutDir}/Compiler\"",
+		"{COPYDIR} \"%{cfg.targetdir}\" \"%{buildToolsOutDir}/bin\"",
 	}
 	
 	filter "system:windows"

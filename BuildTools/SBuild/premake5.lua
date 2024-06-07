@@ -36,9 +36,11 @@ project "SBuild"
 	
 	prebuildcommands {
 		"{MKDIR} \"%{buildToolsOutDir}\"",
+		"{MKDIR} \"%{buildToolsOutDir}/bin\"",
 	}
 	postbuildcommands {
 		"{COPYDIR} \"%{cfg.targetdir}\" \"%{buildToolsOutDir}\"",
+		"{COPYDIR} \"%{cfg.targetdir}\" \"%{buildToolsOutDir}/bin\""
 	}
 	
 	filter "system:windows"

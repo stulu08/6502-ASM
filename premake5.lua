@@ -14,7 +14,8 @@ workspace "Emulator"
 	}
 	solution_items 
 	{
-		"**.lua",
+		"BuildTools/Test/main.asm",
+		"BuildTools/Test/terminal.asm",
 		"README.md"
 	}
 	architecture "x86_64"

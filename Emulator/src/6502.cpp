@@ -73,10 +73,15 @@ namespace E6502 {
 		WriteWord(memory, word, SP, cycles);
 	}
 
-
-	void CPU::LDAStatus() {
+	void CPU::ZeroFlag() {
 		S_Z = (A == 0);
+	}
+	void CPU::NegativeFlag() {
 		S_N = (A & 0b10000000) > 0;
+	}
+	void CPU::LDAStatus() {
+		ZeroFlag();
+		NegativeFlag();
 	}
 
 	// https://web.archive.org/web/20210803072316/http://www.obelisk.me.uk/6502/reference.html
@@ -116,10 +121,14 @@ namespace E6502 {
 			cycles -= 2;
 			break;
 		}
-		case Instruction::INT_IM: {
-			Byte value = Fetch(memory, cycles);
-			if (interruptCallback)
-				(*interruptCallback)(value);
+		case Instruction::PHA: {
+			PushStack(memory, A, cycles);
+			break;
+		}
+		case Instruction::PLA: {
+			A = PopStack(memory, cycles);
+			cycles -= 1;
+			ZeroFlag();
 			break;
 		}
 		case Instruction::LDA_IM: {

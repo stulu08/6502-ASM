@@ -25,9 +25,6 @@ namespace E6502 {
 		virtual void OnMemoryWrite(DWord location) {
 
 		}
-		virtual void OnInterrupt(Byte num) {
-
-		}
 
 		virtual Byte GetSize() const = 0;
 		virtual bool AlreadyDedicatedAddress() const {
@@ -50,10 +47,6 @@ namespace E6502 {
 		virtual void Disconnect() override {
 		}
 
-		virtual void OnInterrupt(Byte num) {
-			Byte data = cpu->A;
-			putchar(data);
-		}
 		virtual void OnMemoryWrite(DWord location) {
 			if (location == Memory::IOPeripherals + 1) {
 				Byte data = memory->Read(location);

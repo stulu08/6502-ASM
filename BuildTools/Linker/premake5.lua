@@ -35,12 +35,10 @@ project "Linker"
 	
 	prebuildcommands {
 		"{MKDIR} \"%{buildToolsOutDir}\"",
-		
-		"{RMDIR} \"%{buildToolsOutDir}/Linker\"",
-		"{MKDIR} \"%{buildToolsOutDir}/Linker\"",
+		"{MKDIR} \"%{buildToolsOutDir}/bin\"",
 	}
 	postbuildcommands {
-		"{COPYDIR} \"%{cfg.targetdir}\" \"%{buildToolsOutDir}/Linker\"",
+		"{COPYDIR} \"%{cfg.targetdir}\" \"%{buildToolsOutDir}/bin\"",
 	}
 	
 	filter "system:windows"

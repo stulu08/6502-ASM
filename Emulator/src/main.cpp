@@ -1,4 +1,5 @@
 #include <Machine.h>
+#include <string>
 using namespace E6502;
 
 
@@ -20,15 +21,17 @@ int main(int argc, char** argv) {
 		fprintf(stderr, "Error: Could not open file: %s", file);
 	}
 
+
+
 	machine->Load(file);
 
 	machine->AddDevic<Terminal>();
 
 	machine->Execute();
 	
-	machine->DumpInfo();
-
 	Byte re = machine->cpu.A;
+	if(argc >= 3 && std::string(argv[2]) == "-d")
+		machine->DumpInfo();
 
 	delete machine;
 

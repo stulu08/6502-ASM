@@ -42,6 +42,7 @@ namespace Common {
 #define ERROR(msg, ...) { fprintf(stderr, msg, __VA_ARGS__); return nullptr; }
 #define ERROR_L(msg, ...) { fprintf(stderr, msg, __VA_ARGS__); ::Common::GetGData().errorCount++;continue; }
 #define ERROR_C(msg, ...) { fprintf(stderr, msg, __VA_ARGS__); ::Common::GetGData().errorCount++;continue; }
+#define ERROR_C_R(msg, ...) { fprintf(stderr, msg, __VA_ARGS__); ::Common::GetGData().errorCount++; }
 
 	enum class Status {
 		Error,

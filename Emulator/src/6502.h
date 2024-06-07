@@ -23,29 +23,38 @@ namespace E6502 {
 		Byte S_Z : 1; // zero flag
 		Byte S_C : 1; // carry flag
 
-		void (*interruptCallback)(Byte) = NULL;
-
-
 		void Reset(Memory& memory);
 		void Execute(Memory& memory, DWord cycles);
 		DWord ExecuteOne(Memory& memory, DWord cycles = UINT16_MAX - 1);
 
+		// 1 cycle
 		Byte Fetch(Memory& memory, DWord& cycles);
+		// 2 cycles
 		DWord FetchWord(Memory& memory, DWord& cycles);
 
+		// 1 cycle
 		Byte Read(Memory& memory, DWord Address, DWord& cycles);
+		// 2 cycles
 		DWord ReadWord(Memory& memory, DWord address, DWord& cycles);
 
+		// 1 cycle
 		void Write(Memory& memory, Byte byte, DWord address, DWord& cycles);
+		// 2 cycles
 		void WriteWord(Memory& memory, DWord word, DWord address, DWord& cycles);
 
+		// 2 cycles
 		Byte PopStack(Memory& memory, DWord& cycles);
+		// 3 cycles
 		DWord PopStackWord(Memory& memory, DWord& cycles);
 
+		// 2 cycles
 		void PushStack(Memory& memory, Byte byte, DWord& cycles);
+		// 3 cycles
 		void PushStackWord(Memory& memory, DWord word, DWord& cycles);
 
 		void LDAStatus();
+		void ZeroFlag();
+		void NegativeFlag();
 		
 		void Dump(const char* fName) const;
 	};

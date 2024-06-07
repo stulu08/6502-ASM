@@ -12,6 +12,9 @@ namespace E6502 {
 		JMP_ABS = 0x4C,
 		RTS = 0x60,
 
+		PHA = 0x48,
+		PLA = 0x68,
+
 		LDA_IM = 0xA9,
 		LDA_ZP = 0xA5,
 		LDA_ZPX = 0xB5,
@@ -20,8 +23,13 @@ namespace E6502 {
 		STA_ZP = 0x85,
 		STA_ABS = 0x8D,
 
-		// OWN
-		INT_IM = 0xFE,
+		ADC_IM = 0x69,
+		ADC_ZP = 0x69,
+		ADC_ZPX = 0x69,
+		ADC_ABS = 0x69,
+		ADC_ABSX = 0x69,
+		ADC_ABSY = 0x69,
+
 	};
 	class Memory {
 	public:

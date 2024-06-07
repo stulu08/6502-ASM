@@ -24,7 +24,6 @@ namespace E6502 {
 			Machine::s_instance = this;
 
 			cpu.Reset(memory);
-			cpu.interruptCallback = &OnInterrupt;
 			memory.writeCallback = &OnMemoryWritten;
 		}
 
@@ -46,14 +45,6 @@ namespace E6502 {
 			for (Device* device : Machine::Get().devices) {
 				if (device) {
 					device->OnMemoryWrite(location);
-				}
-			}
-		}
-
-		static inline void OnInterrupt(Byte num) {
-			for (Device* device : Machine::Get().devices) {
-				if (device) {
-					device->OnInterrupt(num);
 				}
 			}
 		}
